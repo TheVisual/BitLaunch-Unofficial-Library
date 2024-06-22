@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
 
 namespace BitLaunch
 {
@@ -9,7 +9,7 @@ namespace BitLaunch
             try
             {
                 HttpResponseMessage post = await client.HttpClient.Get("servers");
-                return JsonConvert.DeserializeObject<List<CreateServerResponse>>(await post.Content.ReadAsStringAsync());
+                return JsonSerializer.Deserialize<List<CreateServerResponse>>(await post.Content.ReadAsStringAsync());
             }
             catch (Exception ex)
             {

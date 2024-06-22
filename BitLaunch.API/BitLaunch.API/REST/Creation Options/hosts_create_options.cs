@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
 
 namespace BitLaunch
 {
@@ -9,7 +9,7 @@ namespace BitLaunch
             try
             {
                 HttpResponseMessage post = await client.HttpClient.Get("hosts-create-options/" + host_id);
-                return JsonConvert.DeserializeObject<CreationOptionsExtension>(await post.Content.ReadAsStringAsync());
+                return JsonSerializer.Deserialize<CreationOptionsExtension>(await post.Content.ReadAsStringAsync());
             }
             catch (Exception ex)
             {

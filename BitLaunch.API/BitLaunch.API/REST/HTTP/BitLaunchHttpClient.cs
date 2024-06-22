@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 
 namespace BitLaunch
 {
@@ -47,25 +47,30 @@ namespace BitLaunch
                 }
             }
         }
-        public async Task<HttpResponseMessage> PostCreate(string endpoint, CreateServerRequest PostData)
-        {
-            var webClient = new HttpClient();
+		public async Task<HttpResponseMessage> PostCreate(string endpoint, CreateServerRequest PostData)
+		{
+			using var webClient = new HttpClient();
 
-            while (true)
-            {
-                try
-                {
-                    webClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
-                    webClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
-                    webClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _BitLaunchClient.Api_key);
-                    Console.WriteLine(JsonConvert.SerializeObject(PostData, Formatting.None));
-                    return await webClient.PostAsync(Api + endpoint, new StringContent(JsonConvert.SerializeObject(PostData, Formatting.None), Encoding.UTF8, "application/json"));
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.ToString());
-                }
-            }
-        }
-    }
+			while (true)
+			{
+				try
+				{
+					webClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
+					webClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+					webClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _BitLaunchClient.Api_key);
+
+					string jsonData = JsonSerializer.Serialize(PostData);
+					Console.WriteLine(jsonData);
+
+					var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+					return await webClient.PostAsync(Api + endpoint, content);
+				}
+				catch (Exception ex)
+				{
+					throw new Exception(ex.ToString());
+				}
+			}
+		}
+
+	}
 }

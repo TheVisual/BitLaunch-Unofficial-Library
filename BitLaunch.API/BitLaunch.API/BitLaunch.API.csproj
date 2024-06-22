@@ -4,6 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.0.1</Version>
+    <PackageIcon>j-GAj_cV_400x400.png</PackageIcon>
+    <Copyright>TheVisual</Copyright>
+    <PackageProjectUrl>https://github.com/TheVisual/BitLaunch-Unofficial-Library</PackageProjectUrl>
+    <RepositoryType>https://github.com/TheVisual/BitLaunch-Unofficial-Library</RepositoryType>
+    <RepositoryUrl>https://github.com/TheVisual/BitLaunch-Unofficial-Library</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -13,5 +19,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\Pictures\j-GAj_cV_400x400.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
